@@ -11,7 +11,7 @@ is a simulation with no hardware behind it.
 
 ## Build and run
 
-Needs g++ or clang++ and CMake 3.14 or newer.
+Needs g++ or clang++ and CMake 3.20 or newer.
 
 ```bash
 cmake -S . -B build
