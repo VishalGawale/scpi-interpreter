@@ -36,7 +36,12 @@ std::string Interpreter::execute(const std::string& line) {
             return "-104,\"Data type error\"";
         }
         try {
-            instrument_.frequency_hz = std::stod(cmd->args[0]);
+            std::size_t pos = 0;
+            double value = std::stod(cmd->args[0], &pos);
+            if (pos != cmd->args[0].size()) {
+                return "-104,\"Data type error\"";
+            }
+            instrument_.frequency_hz = value;
         } catch (const std::exception&) {
             return "-104,\"Data type error\"";
         }

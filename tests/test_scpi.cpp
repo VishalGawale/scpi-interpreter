@@ -69,7 +69,7 @@ static void test_interpreter() {
 
     CHECK(in.execute("NOPE").rfind("-113", 0) == 0);
 
-    CHECK(!in.execute("FREQ abc").empty());
+    CHECK(!in.execute("FREQ 10abc").empty());
     CHECK(in.execute("FREQ?") == "1000000");
 }
 
