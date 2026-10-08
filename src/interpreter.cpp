@@ -42,7 +42,20 @@ std::string Interpreter::execute(const std::string& line) {
         }
         return "";
     }
-    // TODO (you): POW goes here, same pattern as FREQ
+    if (cmd->header == "POW") {
+        if (cmd->is_query) {
+            return format_number(instrument_.power_dbm);
+        }
+        if (cmd->args.size() != 1) {
+            return "-104,\"Data type error\"";
+        }
+        try {
+            instrument_.power_dbm = std::stod(cmd->args[0]);
+        } catch (const std::exception&) {
+            return "-104,\"Data type error\"";
+        }
+        return "";
+    }
     return "-113,\"Undefined header\"";
 }
 
