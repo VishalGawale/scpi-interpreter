@@ -1,8 +1,10 @@
 #include "scpi/interpreter.h"
 #include "scpi/parser.h"
+#include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 namespace scpi {
 
@@ -55,7 +57,12 @@ std::string Interpreter::execute(const std::string& line) {
             return "-104,\"Data type error\"";
         }
         try {
-            instrument_.power_dbm = std::stod(cmd->args[0]);
+            std::size_t pos = 0;
+            double value = std::stod(cmd->args[0], &pos);
+            if (pos != cmd->args[0].size()) {
+                return "-104,\"Data type error\"";
+            }
+            instrument_.power_dbm = value;
         } catch (const std::exception&) {
             return "-104,\"Data type error\"";
         }
